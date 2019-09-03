@@ -7,27 +7,28 @@ public class Map : MonoBehaviour {
 	public GameObject[] mapRoad;
 
 	int[,] map;
-	int n;
+	int n, m;
 	string line;
 	
 	
 	public GameObject[] sprites;
 
 	void Awake () {
-		n = 20;
+		n = 60;
+		m = 60;
 		InitMap();
 		RednerMap();
 		GrassMap();
 	}
 	
 	void InitMap() {
-		map = new int[n, n];
-		mapRoad = new GameObject[n*n];
+		map = new int[n, m];
+		mapRoad = new GameObject[n*m];
 	}
 
 	void GrassMap() {
 		for(int i = 0; i < n; i++) {
-			for(int j = 0; j < n; j++) {
+			for(int j = 0; j < m; j++) {
 				if(map[i, j] == 0) {
 					GameObject pref;
 					pref = Instantiate(sprites[0], new Vector3(i * 3, j * 3), new Quaternion(0f, 0f, 0f, 0f)) as GameObject;
@@ -48,7 +49,7 @@ public class Map : MonoBehaviour {
 			try {
 				if(l == 0) {
 					x = 0;
-					y = Random.Range(0, n);
+					y = Random.Range(0, m);
 					GameObject pref;
 					pref = Instantiate(sprites[1], new Vector3(x * 3, y * 3), new Quaternion(0f, 0f, 0f, 0f)) as GameObject;
 
@@ -86,7 +87,7 @@ public class Map : MonoBehaviour {
 						if(h == 0) h = Random.Range(1, 5);
 						else h--;
 
-						if(y > n) {
+						if(y > m) {
 							y--;
 							right = true;
 						}
@@ -99,7 +100,7 @@ public class Map : MonoBehaviour {
 						if(h == 0) h = Random.Range(1, 5);
 						else h--;
 
-						if(y < 1) {
+						if(y < 0) {
 							y++;
 							right = true;
 						}
