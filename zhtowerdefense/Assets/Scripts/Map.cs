@@ -4,103 +4,147 @@ using UnityEngine;
 
 public class Map : MonoBehaviour {
 	
+	public GameObject[] mapRoad;
+
 	int[,] map;
 	int n;
 	string line;
 	
-	int x, y;
 	
 	public GameObject[] sprites;
 
-	void Start() {
+	void Awake () {
 		n = 20;
 		InitMap();
-		ResetMap();
 		RednerMap();
-		DrawMap();
-		DebugMap();
+		GrassMap();
 	}
 	
 	void InitMap() {
 		map = new int[n, n];
+		mapRoad = new GameObject[n*n];
 	}
 
-	void ResetMap() {
+	void GrassMap() {
 		for(int i = 0; i < n; i++) {
 			for(int j = 0; j < n; j++) {
-				map[i, j] = 0;
+				if(map[i, j] == 0) {
+					GameObject pref;
+					pref = Instantiate(sprites[0], new Vector3(i * 3, j * 3), new Quaternion(0f, 0f, 0f, 0f)) as GameObject;
+				}
 			}
 		}
 	}
-	
+
+	int x, y;
+	bool canUp, canDown, right = false;
+	int h;
+
 	void RednerMap() {
-		for(int i = 0; i < n; i++) {
-			for(int j = 0; j < n; j++) {
-				try {
-					if(i == 0) {
-						x = 0;
-						y = Random.Range(0, n);
-						map[x, y] = 1;
-						break;
+		int z = 0;
+		int l = 0;
+		
+		while(x < n) {
+			try {
+				if(l == 0) {
+					x = 0;
+					y = Random.Range(0, n);
+					GameObject pref;
+					pref = Instantiate(sprites[1], new Vector3(x * 3, y * 3), new Quaternion(0f, 0f, 0f, 0f)) as GameObject;
+
+					mapRoad[z] = pref;
+
+					map[x, y] = 1;
+				
+					z++;
+				}
+
+				else {
+					int r; 
+					if(h > 0 && canUp) {
+						r = 1;
 					}
-					
+
+					else if(h > 0 && canDown) {
+						r = 2;
+					}
+
+					else
+						r = Random.Range(0, 3);
+
+					if(r == 0) {
+						x++;
+						canUp = true;
+						canDown = true;
+						right = true;
+					}
+
+					else if(r == 1 && canUp) {
+						y++;
+						canDown = false;
+
+						if(h == 0) h = Random.Range(1, 5);
+						else h--;
+
+						if(y > n) {
+							y--;
+							right = true;
+						}
+					}
+
+					else if(r == 2 && canDown) {
+						y--;
+						canUp = false;
+
+						if(h == 0) h = Random.Range(1, 5);
+						else h--;
+
+						if(y < 1) {
+							y++;
+							right = true;
+						}
+					}
+
 					else {
-						int rand = Random.Range(0, 12);
-						
-						if(rand > 0 && rand < 4) {
-							if(x < n-1) {
-								x++;
-								
-								map[x, y] = 1;
-							}
-						}
-						
-						else if(rand >= 4 && rand < 8) {
-							if(y < n-1) {
-								y++;
-								if(map[x, y] == 0)
-									map[x, y] = 1;
-								else
-									y--;
-							}
-						}
-						
-						else if(rand >= 8) {
-							if(y > 0) {
-								y--;
-								if(map[x, y] == 0)
-									map[x, y] = 1;
-								else
-									y++;
-							}
-						}
+						x++;
+						canUp = true;
+						canDown = true;
+						right = true;
 					}
-				} catch {}
+
+					GameObject pref;
+					pref = Instantiate(sprites[1], new Vector3(x * 3, y * 3), new Quaternion(0f, 0f, 0f, 0f)) as GameObject;
+
+					mapRoad[z] = pref;
+
+					map[x, y] = 1;
+				
+					z++;
+
+					if(right) {
+						x++;
+
+						pref = Instantiate(sprites[1], new Vector3(x * 3, y * 3), new Quaternion(0f, 0f, 0f, 0f)) as GameObject;
+
+						mapRoad[z] = pref;
+
+						map[x, y] = 1;
+
+						right = false;
+						z++;
+					}
+				}
 			}
+
+			catch {
+
+			}
+
+			l++;
 		}
 	}
-	
-	void DrawMap() {
-		for(int i = 0; i < n; i++) {
-			for(int j = 0; j < n; j++) {
-				GameObject pref;
 
-				pref = Instantiate(sprites[map[i, j]], new Vector3(i * 1, j * 1), new Quaternion(0f, 0f, 0f, 0f)) as GameObject;
-			}
-			
-			Debug.Log(line);
-			line = "";
-		}
-	}
-
-	void DebugMap() {
-		for(int i = 0; i < n; i++) {
-			for(int j = 0; j < n; j++) {
-				line += map[i, j];
-			}
-			
-			Debug.Log(line);
-			line = "";
-		}
+	public Transform GetSpawnPosition() {
+		return mapRoad[0].transform;
 	}
 }
