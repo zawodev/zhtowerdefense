@@ -87,7 +87,7 @@ public class Map : MonoBehaviour {
 						if(h == 0) h = Random.Range(1, 5);
 						else h--;
 
-						if(y > m) {
+						if(y > m-1) {
 							y--;
 							right = true;
 						}
@@ -100,7 +100,7 @@ public class Map : MonoBehaviour {
 						if(h == 0) h = Random.Range(1, 5);
 						else h--;
 
-						if(y < 0) {
+						if(y < 1) {
 							y++;
 							right = true;
 						}
