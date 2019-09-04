@@ -27,5 +27,6 @@ public class SpawnEnemy : MonoBehaviour {
         GameObject pref;
 
         pref = Instantiate(enemy, map.GetSpawnPosition().position, new Quaternion(0f, 0f, 0f, 0f)) as GameObject;
+        pref.transform.parent = GameObject.Find("BACKGROUND").transform;
     }
 }

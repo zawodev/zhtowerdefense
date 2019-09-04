@@ -14,11 +14,13 @@ public class Map : MonoBehaviour {
 	public GameObject[] sprites;
 
 	void Awake () {
-		n = 60;
-		m = 60;
+		n = 24;
+		m = 10;
 		InitMap();
 		RednerMap();
 		GrassMap();
+
+		GameObject.Find("BACKGROUND").transform.position = new Vector3(-58f, 0f, 0f);
 	}
 	
 	void InitMap() {
@@ -30,8 +32,9 @@ public class Map : MonoBehaviour {
 		for(int i = 0; i < n; i++) {
 			for(int j = 0; j < m; j++) {
 				if(map[i, j] == 0) {
-					GameObject pref;
-					pref = Instantiate(sprites[0], new Vector3(i * 3, j * 3), new Quaternion(0f, 0f, 0f, 0f)) as GameObject;
+					//GameObject pref;
+					//pref = Instantiate(sprites[0], new Vector3(i * 5, j * 5), new Quaternion(0f, 0f, 0f, 0f)) as GameObject;
+					//pref.transform.parent = GameObject.Find("BACKGROUND").transform;
 				}
 			}
 		}
@@ -51,7 +54,9 @@ public class Map : MonoBehaviour {
 					x = 0;
 					y = Random.Range(0, m);
 					GameObject pref;
-					pref = Instantiate(sprites[1], new Vector3(x * 3, y * 3), new Quaternion(0f, 0f, 0f, 0f)) as GameObject;
+					pref = Instantiate(sprites[1], new Vector3(x * 5, y * 5), new Quaternion(0f, 0f, 0f, 0f)) as GameObject;
+
+					pref.transform.parent = GameObject.Find("BACKGROUND").transform;
 
 					mapRoad[z] = pref;
 
@@ -114,7 +119,9 @@ public class Map : MonoBehaviour {
 					}
 
 					GameObject pref;
-					pref = Instantiate(sprites[1], new Vector3(x * 3, y * 3), new Quaternion(0f, 0f, 0f, 0f)) as GameObject;
+					pref = Instantiate(sprites[1], new Vector3(x * 5, y * 5), new Quaternion(0f, 0f, 0f, 0f)) as GameObject;
+
+					pref.transform.parent = GameObject.Find("BACKGROUND").transform;
 
 					mapRoad[z] = pref;
 
@@ -125,7 +132,9 @@ public class Map : MonoBehaviour {
 					if(right) {
 						x++;
 
-						pref = Instantiate(sprites[1], new Vector3(x * 3, y * 3), new Quaternion(0f, 0f, 0f, 0f)) as GameObject;
+						pref = Instantiate(sprites[1], new Vector3(x * 5, y * 5), new Quaternion(0f, 0f, 0f, 0f)) as GameObject;
+
+						pref.transform.parent = GameObject.Find("BACKGROUND").transform;
 
 						mapRoad[z] = pref;
 
