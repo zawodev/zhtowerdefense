@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour {
-    Map map;
+    RenderMap renderMap;
 
     int n = 0;
 
@@ -12,23 +12,23 @@ public class Enemy : MonoBehaviour {
     float distance;
 
     void Awake() {
-        map = GameObject.Find("Map").GetComponent<Map>();
+        renderMap = GameObject.Find("RenderMap").GetComponent<RenderMap>();
 
-        speed = Random.Range(5f, 15f);
+        speed = 100f;
     }
 
     void Update() {
         try {
-            distance = Vector2.Distance(transform.position, map.mapRoad[n].transform.position);
+            distance = Vector2.Distance(transform.position, renderMap.road[n].transform.position);
 
-            if(distance < 0.1f) {
+            if(distance < 1f) {
                 n++;
             }
 
             else {
                 Vector2 dir = new Vector2(
-                    map.mapRoad[n].transform.position.x - transform.position.x,
-                    map.mapRoad[n].transform.position.y - transform.position.y
+                    renderMap.road[n].transform.position.x - transform.position.x,
+                    renderMap.road[n].transform.position.y - transform.position.y
                 );
 
                 transform.up = dir;

@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class SpawnEnemy : MonoBehaviour {
-    Map map;
+    RenderMap renderMap;
 
     public GameObject enemy;
 
     float timer;
 
-    void Awake() {
-        map = GetComponent<Map>();
+    void Start() {
+        renderMap = GetComponent<RenderMap>();
+        Spawn();
     }
 
     void Update() {
@@ -26,7 +27,9 @@ public class SpawnEnemy : MonoBehaviour {
     void Spawn() {
         GameObject pref;
 
-        pref = Instantiate(enemy, map.GetSpawnPosition().position, new Quaternion(0f, 0f, 0f, 0f)) as GameObject;
-        pref.transform.parent = GameObject.Find("BACKGROUND").transform;
+        pref = Instantiate(enemy, renderMap.road[0].transform.position, new Quaternion(0f, 0f, 0f, 0f)) as GameObject;
+
+        pref.GetComponent<RectTransform>().sizeDelta = new Vector2(renderMap.block_size_x, renderMap.block_size_y);
+        pref.GetComponent<RectTransform>().SetParent(transform);
     }
 }

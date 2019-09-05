@@ -32,9 +32,9 @@ public class Map : MonoBehaviour {
 		for(int i = 0; i < n; i++) {
 			for(int j = 0; j < m; j++) {
 				if(map[i, j] == 0) {
-					//GameObject pref;
-					//pref = Instantiate(sprites[0], new Vector3(i * 5, j * 5), new Quaternion(0f, 0f, 0f, 0f)) as GameObject;
-					//pref.transform.parent = GameObject.Find("BACKGROUND").transform;
+					GameObject pref;
+					pref = Instantiate(sprites[0], new Vector3(i * 5, j * 5), new Quaternion(0f, 0f, 0f, 0f)) as GameObject;
+					pref.transform.parent = GameObject.Find("BACKGROUND").transform;
 				}
 			}
 		}
