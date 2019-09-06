@@ -16,8 +16,8 @@ public class RenderMap : MonoBehaviour {
     public int x, y;
 
     void Awake() {
-        x = 24;
-        y = 10;
+        x = 15;
+        y = 8;
 
         screen_width = Screen.width;
         screen_height = Screen.height;
@@ -84,7 +84,7 @@ public class RenderMap : MonoBehaviour {
                     down = true;
                 }
 
-                else if(random == 1 && up && y * block_size_y + block_size_y / 2 < 1026) {
+                else if(random == 1 && up && y * block_size_y + block_size_y / 2 < 843.25) {
                     y++;
 
                     down = false;
@@ -92,7 +92,7 @@ public class RenderMap : MonoBehaviour {
                     Debug.Log(y * block_size_y + block_size_y / 2);
                 }
 
-                else if(random == 2 && down && y * block_size_y + block_size_y / 2 > 54) {
+                else if(random == 2 && down && y * block_size_y + block_size_y / 2 > 56.25) {
                     y--;
 
                     Debug.Log(y * block_size_y + block_size_y / 2);
