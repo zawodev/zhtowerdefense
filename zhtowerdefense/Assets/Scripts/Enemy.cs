@@ -11,9 +11,12 @@ public class Enemy : MonoBehaviour {
 
     float distance;
 
+    public int hp;
+
     void Awake() {
         renderMap = GameObject.Find("RenderMap").GetComponent<RenderMap>();
 
+        hp = 50;
         speed = 100f;
     }
 
@@ -40,5 +43,7 @@ public class Enemy : MonoBehaviour {
         catch {
             Destroy(gameObject);
         }
+
+        if(hp <= 0) Destroy(gameObject);
     }
 }
