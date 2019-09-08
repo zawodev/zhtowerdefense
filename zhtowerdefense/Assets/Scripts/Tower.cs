@@ -64,7 +64,7 @@ public class Tower : MonoBehaviour {
                 enemy.transform.position.y - transform.position.y
             );
 
-            transform.up = dir;
+            transform.GetChild(0).transform.up = dir;
         }
 
         catch {}
